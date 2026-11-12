@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('Staff dashboard')}"></head>
+<body>
+<header th:replace="~{fragments/layout :: header('admin')}"></header>
+<main id="main" class="container page">
+    <div class="page-heading"><p class="eyebrow"><span class="rule"></span> Staff dashboard</p><h1>Shelter overview</h1></div>
+    <nav th:replace="~{fragments/layout :: adminNav('dashboard')}"></nav>
+    <div class="staff-stats">
+        <div class="stat-box"><strong th:text="${pendingCount}"></strong>Pending applications</div>
+        <div class="stat-box"><strong th:text="${animalCount}"></strong>Animal profiles</div>
+        <div class="stat-box"><strong th:text="${orderCount}"></strong>Completed demo orders</div>
+        <div class="stat-box"><strong th:text="${donationCount}"></strong>Standalone donations</div>
+    </div>
+    <section class="staff-tools"><h2>Manage the shelter</h2><div class="grid">
+        <a class="card" href="/admin/applications"><h3>Review applications</h3><svg aria-hidden="true" class="icon "><use href="/images/icons.svg#up-right"></use></svg><p>Read an applicant’s care plan and record a decision.</p></a>
+        <a class="card" href="/admin/animals/new"><h3>Add a resident</h3><svg aria-hidden="true" class="icon "><use href="/images/icons.svg#up-right"></use></svg><p>Create a profile for a cat or dog joining the shelter.</p></a>
+        <a class="card" href="/admin/products"><h3>Manage shop stock</h3><svg aria-hidden="true" class="icon "><use href="/images/icons.svg#up-right"></use></svg><p>Update quantities and inspect the inventory history.</p></a>
+    </div></section>
+</main>
+<footer th:replace="~{fragments/layout :: footer}"></footer>
+</body></html>

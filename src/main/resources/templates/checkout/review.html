@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('Review your order')}"><title>Review your order · PawHaven</title></head>
+<body>
+<header th:replace="~{fragments/layout :: header('cart')}"></header>
+<main class="container page market-page" id="main">
+<a class="market-back" th:href="@{/checkout}">← Edit checkout details</a>
+    <div class="market-heading"><div><p class="eyebrow">Charity shop</p><h1>Review your order</h1></div></div>
+    <div class="market-split">
+        <div>
+            <section class="order-block"><h2>Your items</h2>
+                <dl class="price-list"><div th:each="line : ${cart.lines}">
+                    <dt th:text="|${line.product.name} × ${line.quantity}|"></dt><dd th:text="${@kzt.format(line.subtotal)}"></dd>
+                </div></dl>
+            </section>
+            <section class="order-block"><h2 th:text="${details.fulfillment.name() == 'DELIVERY' ? 'Delivery details' : 'Shelter pickup'}"></h2>
+                <p th:text="${details.customerName}"></p><p th:text="${details.email}"></p>
+                <p th:if="${details.fulfillment.name() == 'DELIVERY'}" th:text="${details.address}"></p>
+            </section>
+        </div>
+        <aside class="market-summary"><h2>Order total</h2>
+            <p th:if="${!#strings.isEmpty(details.promoCode)}" th:text="|Promotion applied · ${details.promoCode}|"></p>
+            <dl th:replace="~{shop/fragments :: price(${price.subtotal},${price.discount},${price.giftWrapping},${price.donation},${price.total})}"></dl>
+            <p class="demo-note"><strong>DEMO payment simulation</strong>No money will be charged.</p>
+            <form method="post" th:action="@{/checkout}">
+                <input type="hidden" name="reviewId" th:value="${reviewId}">
+                <button type="submit" class="btn btn-primary">Place demo order</button>
+            </form>
+        </aside>
+    </div>
+</main>
+<footer th:replace="~{fragments/layout :: footer}"></footer>
+</body>
+</html>

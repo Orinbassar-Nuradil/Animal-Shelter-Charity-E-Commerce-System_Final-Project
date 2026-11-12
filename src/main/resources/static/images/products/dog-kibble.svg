@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 260" role="img" aria-label="Dog Kibble">
+    <title>Dog Kibble</title><defs>
+    <pattern id="paper" width="7" height="7" patternUnits="userSpaceOnUse"><circle cx="1" cy="1" r=".6" fill="#726b57" opacity=".2"/><circle cx="5" cy="4" r=".55" fill="#fff" opacity=".6"/></pattern></defs>
+    <rect width="400" height="260" fill="#e6d5b5"/>
+    <ellipse cx="202" cy="213" rx="106" ry="9" fill="#766f59" opacity=".12"/>
+    <g transform="rotate(-6 202 141)">
+    <path d="m146 61 109-2 10 17-3 124-13 13-117-2 9-137z" fill="#b97f58"/>
+    <path d="m148 62 103 2-1 138-113-2 9-125z" fill="#d5a77a"/>
+    <path d="m145 66 107 1-1 16-109-1z" fill="#55745c"/>
+    <path d="m147 85 99 1-3 86-100-1z" fill="#f4e6c7"/>
+    <path d="m166 112 13 4q7-6 16-3l9-15 10 13 13 3-4 10-10 4-1 13-31 1-9-8-13-1z" fill="#5a745b"/>
+    <text x="193" y="160" text-anchor="middle" fill="#445e4a" font-family="Georgia,serif" font-size="15" font-weight="bold">Dog Kibble</text>
+    <path d="m145 186 98 2m-99 5 99 2" stroke="#bc8b63" stroke-width="2"/>
+</g>
+<g fill="#927257"><ellipse cx="267" cy="208" rx="7" ry="4"/><ellipse cx="281" cy="215" rx="6" ry="4"/><ellipse cx="273" cy="225" rx="6" ry="4"/></g>
+    <rect width="400" height="260" fill="url(#paper)" opacity=".52"/>
+</svg>

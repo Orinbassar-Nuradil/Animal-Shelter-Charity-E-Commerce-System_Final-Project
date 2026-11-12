@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 260" role="img" aria-label="Catnip Mouse">
+    <title>Catnip Mouse</title><defs>
+    <pattern id="paper" width="7" height="7" patternUnits="userSpaceOnUse"><circle cx="1" cy="1" r=".6" fill="#726b57" opacity=".2"/><circle cx="5" cy="4" r=".55" fill="#fff" opacity=".6"/></pattern></defs>
+    <rect width="400" height="260" fill="#d7dcd5"/>
+    <ellipse cx="202" cy="213" rx="106" ry="9" fill="#766f59" opacity=".12"/>
+    <g transform="rotate(-9 200 155)">
+    <path d="M149 166c-31-2-44-41-19-59 24-17 46 5 26 20-24 18-57-2-50-36" fill="none" stroke="#b9867e" stroke-width="6" stroke-linecap="round"/>
+    <path d="M145 170c-3-45 24-73 62-70 24 1 37 20 51 50l31 22c4 5-1 12-7 13-35 9-98 8-119-1-9-3-16-7-18-14z" fill="#aa9485"/>
+    <path d="M150 160c5-40 31-60 56-58 29 1 40 26 50 49l28 24c-28 7-68 7-96 5-24-1-33-6-38-20z" fill="#c4ac9a"/>
+    <path d="M158 159c16-13 43-15 75-7m-66-7c13-12 35-17 53-15" fill="none" stroke="#9d8479" stroke-width="2" stroke-dasharray="4 5"/>
+    <path d="M222 134c-5-14-9-36-24-33-13 2-12 25 1 40z" fill="#9c8175"/>
+    <path d="M216 132c-4-14-9-24-15-23-8 1-6 16 0 24z" fill="#ce9a91"/>
+    <circle cx="249" cy="151" r="4" fill="#393d34"/><circle cx="250" cy="149" r="1" fill="#fff3d7"/>
+    <circle cx="284" cy="173" r="5" fill="#b57677"/>
+    <path d="m263 168 28-7m-30 12 29 6" fill="none" stroke="#796c61" stroke-width="1.6"/>
+</g>
+    <rect width="400" height="260" fill="url(#paper)" opacity=".52"/>
+</svg>

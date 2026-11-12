@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('Meet our animals')}"></head>
+<body>
+<header th:replace="~{fragments/layout :: header('animals')}"></header>
+<main id="main" class="container page adopt-page">
+
+    <div class="page-heading">
+        <h1>Meet our animals</h1>
+        <p>Get to know the cats and dogs in our care, and find out how to welcome one home.</p>
+    </div>
+    <form class="adopt-filters" method="get" th:action="@{/animals}">
+        <div class="form-field">
+            <label for="species">Species</label>
+            <select id="species" name="species">
+                <option value="">Cats and dogs</option>
+                <option th:each="s : ${speciesOptions}" th:value="${s}" th:text="${s.label}" th:selected="${s == selectedSpecies}"></option>
+            </select>
+        </div>
+        <div class="form-field">
+            <label for="status">Adoption status</label>
+            <select id="status" name="status">
+                <option value="">All statuses</option>
+                <option th:each="s : ${statusOptions}" th:value="${s}" th:text="${s.label}" th:selected="${s == selectedStatus}"></option>
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary">Filter animals</button>
+        <a class="adopt-back" th:if="${selectedSpecies != null or selectedStatus != null}" th:href="@{/animals}">Clear filters</a>
+    </form>
+    <p class="adopt-count" th:text="|${#lists.size(animals)} ${#lists.size(animals) == 1 ? 'animal' : 'animals'}|"></p>
+    <div class="adopt-list">
+        <a class="adopt-tile" th:each="animal : ${animals}" th:href="@{/animals/{id}(id=${animal.id})}">
+            <div class="adopt-tile-picture">
+                <img th:src="@{${animal.imagePath}}" th:alt="|Portrait of ${animal.name}|" loading="lazy" width="480" height="360">
+                <span class="badge adopt-status" th:classappend="${animal.status.name() == 'AVAILABLE' ? 'adopt-available' : ''}" th:text="${animal.status.label}"></span>
+            </div>
+            <div class="adopt-tile-body">
+                <div><h2 th:text="${animal.name}"></h2><p th:text="|${animal.breed} · ${animal.ageLabel}|"></p></div>
+                <span aria-hidden="true" class="adopt-arrow">↗</span>
+            </div>
+        </a>
+    </div>
+    <section class="adopt-panel" th:if="${#lists.isEmpty(animals)}">
+        <h2>No animals match these filters</h2>
+        <a class="btn btn-secondary" th:href="@{/animals}">See all animals</a>
+    </section>
+</main>
+<footer th:replace="~{fragments/layout :: footer}"></footer>
+</body>
+</html>

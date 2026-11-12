@@ -1,0 +1,13 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('Request could not be completed')}"></head>
+<body>
+<header th:replace="~{fragments/layout :: header('')}"></header>
+<main id="main" class="container page error-page">
+    <p class="eyebrow"><span class="rule"></span> <span th:text="|Request ${status ?: 'error'}|"></span></p>
+    <h1 th:switch="${status}"><span th:case="404">Page not found</span><span th:case="403">Access denied</span><span th:case="400">Check your request</span><span th:case="*">Something went wrong</span></h1>
+    <p th:switch="${status}"><span th:case="403">Your session may have expired, or this page may require a staff login. Reopen the form and try again.</span><span th:case="404">This page or record could not be found. You can return to the shelter from here.</span><span th:case="400">One of the submitted values was missing or invalid. Return to the form to correct it.</span><span th:case="*">We could not complete this request. Return to the shelter and check the current record before trying again.</span></p>
+    <a class="btn btn-primary" href="/">Return home <svg aria-hidden="true" class="icon "><use href="/images/icons.svg#arrow"></use></svg></a>
+</main>
+<footer th:replace="~{fragments/layout :: footer}"></footer>
+</body></html>

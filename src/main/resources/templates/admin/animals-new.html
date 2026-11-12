@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('Add an animal')}"></head>
+<body>
+<header th:replace="~{fragments/layout :: header('admin')}"></header>
+<main id="main" class="container page adopt-page">
+
+    <nav th:replace="~{fragments/layout :: adminNav('animals')}"></nav>
+    <a class="adopt-back" th:href="@{/admin/animals}">← Animal records</a>
+    <div class="page-heading"><h1>Add an animal</h1><p>New profiles appear in the catalog as available for adoption.</p></div>
+    <form method="post" th:action="@{/admin/animals}" th:object="${animalForm}" class="adopt-form adopt-form-wide">
+            <div class="form-field adopt-form-field">
+                <label for="species">Species</label>
+                <select id="species" th:field="*{species}" th:attr="aria-invalid=${#fields.hasErrors('species')},aria-describedby=${#fields.hasErrors('species') ? 'species-error' : null}" required><option value="">Choose a species</option><option th:each="s : ${speciesOptions}" th:value="${s}" th:text="${s.label}"></option></select>
+                <small class="adopt-field-error" id="species-error" th:errors="*{species}" role="alert"></small>
+            </div>
+            <div class="form-field adopt-form-field">
+                <label for="name">Animal name</label>
+                <input id="name" th:field="*{name}" th:attr="aria-invalid=${#fields.hasErrors('name')},aria-describedby=${#fields.hasErrors('name') ? 'name-error' : null}" type="text" maxlength="60" required>
+                <small class="adopt-field-error" id="name-error" th:errors="*{name}" role="alert"></small>
+            </div>
+            <div class="form-field adopt-form-field">
+                <label for="ageMonths">Age in months</label>
+                <input id="ageMonths" th:field="*{ageMonths}" th:attr="aria-invalid=${#fields.hasErrors('ageMonths')},aria-describedby=${#fields.hasErrors('ageMonths') ? 'ageMonths-error' : null}" type="number" min="0" max="480" required>
+                <small class="adopt-field-error" id="ageMonths-error" th:errors="*{ageMonths}" role="alert"></small>
+            </div>
+            <div class="form-field adopt-form-field">
+                <label for="sex">Sex</label>
+                <select id="sex" th:field="*{sex}" th:attr="aria-invalid=${#fields.hasErrors('sex')},aria-describedby=${#fields.hasErrors('sex') ? 'sex-error' : null}" required><option value="">Choose a sex</option><option th:each="s : ${sexOptions}" th:value="${s}" th:text="${s.label}"></option></select>
+                <small class="adopt-field-error" id="sex-error" th:errors="*{sex}" role="alert"></small>
+            </div>
+            <div class="form-field adopt-form-field">
+                <label for="breed">Breed (optional)</label>
+                <input id="breed" th:field="*{breed}" th:attr="aria-invalid=${#fields.hasErrors('breed')},aria-describedby=${#fields.hasErrors('breed') ? 'breed-error' : null}" type="text" maxlength="100">
+                <small class="adopt-field-error" id="breed-error" th:errors="*{breed}" role="alert"></small>
+            </div>
+            <div class="form-field adopt-form-field">
+                <label for="description">Introduction</label>
+                <textarea id="description" th:field="*{description}" th:attr="aria-invalid=${#fields.hasErrors('description')},aria-describedby=${#fields.hasErrors('description') ? 'description-error' : null}" rows="4" maxlength="1500" required></textarea>
+                <small class="adopt-field-error" id="description-error" th:errors="*{description}" role="alert"></small>
+            </div>
+            <div class="form-field adopt-form-field">
+                <label for="careNotes">Care &amp; routine</label>
+                <textarea id="careNotes" th:field="*{careNotes}" th:attr="aria-invalid=${#fields.hasErrors('careNotes')},aria-describedby=${#fields.hasErrors('careNotes') ? 'careNotes-error' : null}" rows="3" maxlength="1000" required></textarea>
+                <small class="adopt-field-error" id="careNotes-error" th:errors="*{careNotes}" role="alert"></small>
+            </div>
+        <button type="submit" class="btn btn-primary">Create profile</button>
+    </form>
+</main>
+<footer th:replace="~{fragments/layout :: footer}"></footer>
+</body>
+</html>

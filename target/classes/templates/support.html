@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('Support our shelter')}"></head>
+<body>
+<header th:replace="~{fragments/layout :: header('support')}"></header>
+<main id="main" class="container page">
+    <p th:if="${notice}" th:text="${notice}" class="alert" role="status"></p>
+    <p th:if="${donatedAmount}" class="alert" role="status">Thank you! Your <strong th:text="${@kzt.format(donatedAmount)}"></strong> demo donation has been recorded.</p>
+    <div class="split-form">
+        <section><p class="eyebrow"><span class="rule"></span> Shelter donations</p><h1>Support our shelter</h1>
+        <p class="page-intro">Food, bedding and everyday care make a shelter feel like home. Try a contribution through our demo donation form.</p>
+        <img class="support-photo" src="/images/animals/maple.jpg" alt="Maple resting in a sunny window"></section>
+        <section class="content-panel">
+            <form method="post" th:action="@{/support}" th:object="${donationForm}" class="form-stack">
+                <h2>Demo donation</h2>
+                <p class="fine-print">This simulation records your chosen amount. No money changes hands.</p>
+                <input type="hidden" name="token" th:value="${token}">
+                <div class="presets" aria-label="Suggested amounts" hidden>
+                    <button type="button" class="preset" data-amount="1000">1,000 ₸</button>
+                    <button type="button" class="preset" data-amount="2500">2,500 ₸</button>
+                    <button type="button" class="preset" data-amount="5000">5,000 ₸</button>
+                </div>
+                <div class="form-field"><label for="donation-amount">Amount in tenge (₸)</label>
+                    <input type="number" id="donation-amount" th:field="*{amount}" required min="1" max="1000000" step="0.01" aria-describedby="amount-hint amount-error">
+                    <small id="amount-hint" class="fine-print">Choose a suggested amount or enter your own.</small>
+                    <small id="amount-error" class="field-error" th:errors="*{amount}"></small>
+                </div>
+                <button class="btn btn-primary" type="submit"><svg aria-hidden="true" class="icon "><use href="/images/icons.svg#heart"></use></svg> Record demo donation</button>
+            </form>
+        </section>
+    </div>
+</main>
+<footer th:replace="~{fragments/layout :: footer}"></footer>
+</body></html>

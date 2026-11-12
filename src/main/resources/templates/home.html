@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('Animal shelter & charity shop')}"></head>
+<body>
+<header th:replace="~{fragments/layout :: header('home')}"></header>
+<main id="main">
+    <section class="container masthead" aria-labelledby="hero-title">
+        <div class="hero-copy">
+            <p class="eyebrow hero-label"><span class="rule"></span> Animal rescue &amp; adoption</p>
+            <h1 id="hero-title">Little paws.<br><em>Big beginnings.</em></h1>
+            <p class="hero-intro">A safe place for cats and dogs to start again. Meet the animals in our care and help them find a home of their own.</p>
+            <div class="actions"><a class="btn btn-primary" href="/animals"><svg aria-hidden="true" class="icon "><use href="/images/icons.svg#paw"></use></svg> Meet Our Animals</a><a class="btn btn-secondary" href="/support"><svg aria-hidden="true" class="icon "><use href="/images/icons.svg#heart"></use></svg> Support Our Shelter</a></div>
+        </div>
+        <div class="hero-art">
+            <div class="photo-mat" aria-hidden="true"></div>
+            <figure class="hero-photo">
+                <img src="/images/animals/milo.jpg" width="1448" height="1086" alt="Milo, a golden retriever mix wearing a green bandana in the shelter meadow" fetchpriority="high">
+                <figcaption><span>Milo</span><span class="album-label">Shelter album</span><svg aria-hidden="true" class="icon "><use href="/images/icons.svg#heart"></use></svg></figcaption>
+            </figure>
+            <span class="tape" aria-hidden="true"></span>
+            <svg class="photo-rays" viewBox="0 0 60 60" aria-hidden="true"><path d="m10 24 3-14m10 23L37 13m-7 32 19-8" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round"/></svg>
+        </div>
+    </section>
+    <div class="container">
+        <div class="impact-strip" aria-label="Shelter statistics">
+            <div><svg aria-hidden="true" class="icon "><use href="/images/icons.svg#paw"></use></svg><span><strong th:text="${availableCount}">8</strong> Ready for adoption</span></div>
+            <div><svg aria-hidden="true" class="icon "><use href="/images/icons.svg#home"></use></svg><span><strong th:text="${adoptedCount}">2</strong> Animals rehomed</span></div>
+            <div><svg aria-hidden="true" class="icon "><use href="/images/icons.svg#bag"></use></svg><span><strong th:text="${productCount}">10</strong> Charity shop products</span></div>
+        </div>
+    </div>
+    <section class="container home-section">
+        <div class="section-heading"><div><p class="eyebrow"><span class="rule"></span> Find a companion</p><h2>Meet the residents</h2></div><a class="section-link" href="/animals">View all animals <svg aria-hidden="true" class="icon "><use href="/images/icons.svg#arrow"></use></svg></a></div>
+        <div class="feature-grid" th:unless="${#lists.isEmpty(featuredAnimals)}">
+            <a class="resident-card" th:each="animal : ${featuredAnimals}" th:href="@{/animals/{id}(id=${animal.id})}">
+                <div class="resident-img"><img th:src="${animal.imagePath}" th:alt="${animal.name}" loading="lazy"><span class="availability"><i></i> Available</span></div>
+                <div class="resident-meta"><div><h3 th:text="${animal.name}">Maple</h3><p th:text="|${animal.species.label} · ${animal.ageLabel} · ${animal.sex.label}|"></p></div><span class="round-link"><svg aria-hidden="true" class="icon"><use href="/images/icons.svg#up-right"></use></svg></span></div>
+            </a>
+        </div>
+        <p class="empty-state" th:if="${#lists.isEmpty(featuredAnimals)}">Every resident is currently matched or on hold. Check the catalog for updates.</p>
+    </section>
+    <section id="shelter" class="shelter-section">
+        <div class="container"><div class="section-heading"><div><p class="eyebrow"><span class="rule"></span> Our shelter</p><h2>How adoption works</h2></div></div>
+        <div class="process-grid">
+            <div><svg aria-hidden="true" class="icon "><use href="/images/icons.svg#paw"></use></svg><h3>Meet a resident</h3><p>Explore each animal’s story, personality and care needs to find a possible match.</p></div>
+            <div><svg aria-hidden="true" class="icon "><use href="/images/icons.svg#file"></use></svg><h3>Tell us about your home</h3><p>Apply from an available animal’s profile. Share your routine and the care you can offer.</p></div>
+            <div><svg aria-hidden="true" class="icon "><use href="/images/icons.svg#home"></use></svg><h3>Let the team review</h3><p>A shelter administrator reviews your application before an adoption can be approved.</p></div>
+        </div></div>
+    </section>
+    <section class="container home-section">
+        <div class="section-heading"><div><p class="eyebrow"><span class="rule"></span> Shop for the shelter</p><h2>Charity shop favorites</h2></div><a class="section-link" href="/shop">Visit the shop <svg aria-hidden="true" class="icon "><use href="/images/icons.svg#arrow"></use></svg></a></div>
+        <div class="feature-grid"><a class="resident-card" th:each="product : ${featuredProducts}" th:href="|/shop#product-${product.id}|">
+            <div class="product-art"><img th:src="${product.imagePath}" th:alt="${product.name}" loading="lazy"></div>
+            <div class="resident-meta"><div><h3 th:text="${product.name}"></h3><p th:text="${@kzt.format(product.price)}"></p></div><span class="round-link"><svg aria-hidden="true" class="icon "><use href="/images/icons.svg#arrow"></use></svg></span></div>
+        </a></div>
+    </section>
+</main>
+<footer th:replace="~{fragments/layout :: footer}"></footer>
+</body></html>

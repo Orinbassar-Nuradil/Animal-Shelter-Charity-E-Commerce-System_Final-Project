@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 260" role="img" aria-label="Everyday Collar">
+    <title>Everyday Collar</title><defs>
+    <pattern id="paper" width="7" height="7" patternUnits="userSpaceOnUse"><circle cx="1" cy="1" r=".6" fill="#726b57" opacity=".2"/><circle cx="5" cy="4" r=".55" fill="#fff" opacity=".6"/></pattern></defs>
+    <rect width="400" height="260" fill="#e8d8ca"/>
+    <ellipse cx="202" cy="213" rx="106" ry="9" fill="#766f59" opacity=".12"/>
+    <g transform="rotate(-16 200 150)">
+    <path d="M93 146c-2-41 54-67 105-68 63-1 112 26 112 63-1 39-56 66-119 66-52 0-95-22-98-61zm26-3c2 21 34 35 75 35 46 0 89-18 91-37 1-22-37-39-86-39-43 0-82 19-80 41z" fill="#9a634f" fill-rule="evenodd"/>
+    <path d="M94 126c11-33 57-53 104-53 60-1 110 26 112 59 0 35-52 65-117 65-55 1-97-18-101-48l1-18 13 18q22 29 86 28 88-1 91-43c2-20-37-37-86-37-43 0-78 14-83 33z" fill="#bd7d63"/>
+    <path d="M104 147q29 46 110 35" fill="none" stroke="#ebc79f" stroke-width="2" stroke-dasharray="4 4"/>
+    <path d="m202 176 36-4 5 26-37 4z" fill="none" stroke="#c2a875" stroke-width="7" stroke-linejoin="round"/>
+    <path d="m221 184 18-1" stroke="#ead8a6" stroke-width="4" stroke-linecap="round"/>
+    <circle cx="258" cy="174" r="3" fill="#764f40"/><circle cx="270" cy="167" r="3" fill="#764f40"/>
+    <circle cx="166" cy="192" r="9" fill="none" stroke="#cdb58c" stroke-width="4"/>
+    <path d="M154 201c7-8 14 0 14 0s13-9 16 2c2 7-14 17-18 20-4-2-17-15-12-22z" fill="#c6a56c"/>
+</g>
+    <rect width="400" height="260" fill="url(#paper)" opacity=".52"/>
+</svg>

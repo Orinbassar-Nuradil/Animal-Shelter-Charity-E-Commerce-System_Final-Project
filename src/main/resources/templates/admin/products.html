@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('Stock room')}"><title>Stock room · PawHaven</title></head>
+<body>
+<header th:replace="~{fragments/layout :: header('admin')}"></header>
+<main class="container page market-page" id="main">
+<nav th:replace="~{fragments/layout :: adminNav('products')}"></nav>
+<div class="market-heading"><div><p class="eyebrow">Administration</p><h1>Stock room</h1>
+        <p>Set the number of units available to buy in the charity shop.</p></div>
+        <a class="btn btn-secondary" th:href="@{/admin/inventory}">Inventory history</a></div>
+    <div th:replace="~{shop/fragments :: notices}"></div>
+    <div class="table-wrap"><table>
+        <thead><tr><th scope="col">Product</th><th scope="col">Price</th><th scope="col">On hand</th><th scope="col">Set stock</th></tr></thead>
+        <tbody><tr th:each="p : ${products}">
+            <th scope="row"><span th:text="${p.name}"></span><small class="table-sub" th:text="${p.category}"></small></th>
+            <td th:text="${@kzt.format(p.price)}"></td><td th:text="${p.stock}"></td>
+            <td><form method="post" class="market-inline" th:action="@{/admin/products/{id}/stock(id=${p.id})}">
+                <label class="market-sr" th:for="|stock-${p.id}|" th:text="|New stock for ${p.name}|"></label>
+                <input type="number" th:id="|stock-${p.id}|" name="stock" min="0" th:value="${p.stock}" required>
+                <button type="submit" class="btn btn-secondary btn-compact">Save</button>
+            </form></td>
+        </tr></tbody>
+    </table></div>
+</main>
+<footer th:replace="~{fragments/layout :: footer}"></footer>
+</body>
+</html>

@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('Your cart')}"><title>Your cart · PawHaven</title></head>
+<body>
+<header th:replace="~{fragments/layout :: header('cart')}"></header>
+<main class="container page market-page" id="main">
+<div class="market-heading"><div><p class="eyebrow">Charity shop</p><h1>Your cart</h1></div>
+        <a th:href="@{/shop}" class="market-link">Continue shopping <span aria-hidden="true">→</span></a>
+    </div>
+    <div th:replace="~{shop/fragments :: notices}"></div>
+    <section th:if="${cart.lines.isEmpty()}" class="market-empty">
+        <h2>Your cart is empty</h2><p>Find pet essentials and PawHaven merchandise in the shelter shop.</p>
+        <a th:href="@{/shop}" class="btn btn-primary">Browse the shop</a>
+    </section>
+    <div class="market-split" th:unless="${cart.lines.isEmpty()}">
+        <section aria-label="Cart items" class="cart-lines">
+            <article class="cart-item" th:each="line : ${cart.lines}">
+                <img th:src="@{${line.product.imagePath}}" th:alt="${line.product.name}" width="100" height="80">
+                <div class="cart-product">
+                    <h2 th:text="${line.product.name}"></h2>
+                    <p th:text="|${@kzt.format(line.product.price)} each|"></p>
+                    <p role="status" class="cart-warning" th:if="${!line.product.available || line.quantity > line.product.stock}"
+                       th:text="|Stock changed. ${line.product.stock} available.|"></p>
+                    <div class="cart-controls">
+                        <form th:action="@{/cart/items/{id}/update(id=${line.product.id})}" method="post" class="market-inline" th:if="${line.product.available}">
+                            <label th:for="|quantity-${line.product.id}|" class="market-sr">Quantity</label>
+                            <input type="number" name="quantity" th:id="|quantity-${line.product.id}|" min="1" th:max="${line.product.stock}" th:value="${line.quantity}" required>
+                            <button type="submit" class="market-text-button">Update</button>
+                        </form>
+                        <form th:action="@{/cart/items/{id}/remove(id=${line.product.id})}" method="post">
+                            <button type="submit" class="market-text-button market-remove" th:attr="aria-label=|Remove ${line.product.name}|">Remove</button>
+                        </form>
+                    </div>
+                </div>
+                <strong th:text="${@kzt.format(line.subtotal)}"></strong>
+            </article>
+        </section>
+        <aside class="market-summary"><h2>Order summary</h2>
+            <dl class="price-list"><div class="price-total"><dt>Subtotal</dt><dd th:text="${@kzt.format(cart.subtotal)}"></dd></div></dl>
+            <p>Choose a promotion, gift wrapping, or shelter donation at checkout.</p>
+            <a th:href="@{/checkout}" class="btn btn-primary">Continue to checkout <span aria-hidden="true">→</span></a>
+        </aside>
+    </div>
+</main>
+<footer th:replace="~{fragments/layout :: footer}"></footer>
+</body>
+</html>

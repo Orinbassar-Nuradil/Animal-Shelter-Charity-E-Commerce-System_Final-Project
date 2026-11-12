@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 260" role="img" aria-label="Nest Pet Bed">
+    <title>Nest Pet Bed</title><defs><g id="paw" fill="currentColor"><path d="M-12 8c0-5 4-7 7-12 3-5 7-5 10 0 3 5 7 7 7 12 0 6-7 7-12 4-5 3-12 2-12-4z"/><ellipse cx="-14" cy="-4" rx="4" ry="6" transform="rotate(-27 -14 -4)"/><ellipse cx="-5" cy="-13" rx="4" ry="6"/><ellipse cx="5" cy="-13" rx="4" ry="6"/><ellipse cx="14" cy="-4" rx="4" ry="6" transform="rotate(27 14 -4)"/></g>
+    <pattern id="paper" width="7" height="7" patternUnits="userSpaceOnUse"><circle cx="1" cy="1" r=".6" fill="#726b57" opacity=".2"/><circle cx="5" cy="4" r=".55" fill="#fff" opacity=".6"/></pattern></defs>
+    <rect width="400" height="260" fill="#dfd9cd"/>
+    <ellipse cx="202" cy="213" rx="106" ry="9" fill="#766f59" opacity=".12"/>
+    <g transform="rotate(-5 200 150)">
+    <path d="M72 146c1-48 63-73 137-68 77 6 121 36 117 86-4 37-58 58-131 55-78-2-126-27-123-73z" fill="#9e866e"/>
+    <path d="M77 138c8-37 60-59 129-54 74 6 117 30 116 64 0 38-58 58-126 52-73-4-128-23-119-62z" fill="#c0a88a"/>
+    <ellipse cx="199" cy="140" rx="94" ry="39" fill="#998773"/>
+    <ellipse cx="202" cy="151" rx="84" ry="27" fill="#d3bd9e"/>
+    <path d="M91 125q-9 28 16 40m4-60q-11 20-3 30m26-41q-6 11-4 19m31-27q-5 7-5 14m32-14-1 11m29-9 1 11m31-7 1 10m24 0 1 11m20 3 1 14m13 6-1 14m5 6-7 12" fill="none" stroke="#d2b99b" stroke-width="4" stroke-linecap="round"/>
+    <path d="M89 171q39 53 151 39m14-2q29-4 48-15" fill="none" stroke="#ba9f83" stroke-width="2" stroke-dasharray="4 4"/>
+    <path d="m217 191 35-2 2 16-35 3z" fill="#e8d7bb"/><use href="#paw" transform="translate(236 199) scale(.31)" color="#827255"/>
+</g>
+    <rect width="400" height="260" fill="url(#paper)" opacity=".52"/>
+</svg>

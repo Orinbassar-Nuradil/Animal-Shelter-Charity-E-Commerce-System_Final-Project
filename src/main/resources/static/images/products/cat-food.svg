@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 260" role="img" aria-label="Cat Food">
+    <title>Cat Food</title><defs>
+    <pattern id="paper" width="7" height="7" patternUnits="userSpaceOnUse"><circle cx="1" cy="1" r=".6" fill="#726b57" opacity=".2"/><circle cx="5" cy="4" r=".55" fill="#fff" opacity=".6"/></pattern></defs>
+    <rect width="400" height="260" fill="#d9dfd4"/>
+    <ellipse cx="202" cy="213" rx="106" ry="9" fill="#766f59" opacity=".12"/>
+    <g transform="rotate(-6 197 144)">
+    <path d="M135 117c1-28 129-29 131-2v75c-1 29-131 27-131 1z" fill="#b3b5a2"/>
+    <path d="M138 119q59 29 125 1v65q-62 32-125-2z" fill="#d8a18b"/>
+    <path d="M139 128q24 11 44 11l-1 54q-23-2-43-13z" fill="#c38b77"/>
+    <path d="M139 186q60 27 124 0m-123 8q60 25 122 0" fill="none" stroke="#e4dfc9" stroke-width="3"/>
+    <ellipse cx="200" cy="115" rx="66" ry="20" fill="#d8d8c4"/><ellipse cx="200" cy="115" rx="56" ry="14" fill="none" stroke="#a3aa99" stroke-width="2"/>
+    <ellipse cx="189" cy="113" rx="13" ry="5" fill="none" stroke="#8e9889" stroke-width="4"/>
+    <path d="m190 145 1-12 10 7 13 1 10-7-1 14c6 18-36 21-33-3z" fill="#f9ebcd"/>
+    <text x="205" y="178" text-anchor="middle" fill="#624d40" font-family="Georgia,serif" font-size="16" font-weight="bold">Cat Food</text>
+</g>
+    <rect width="400" height="260" fill="url(#paper)" opacity=".52"/>
+</svg>

@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('Order confirmation')}"><title>Order confirmation · PawHaven</title></head>
+<body>
+<header th:replace="~{fragments/layout :: header('cart')}"></header>
+<main class="container page market-page" id="main">
+<div class="market-heading"><div><p class="eyebrow">Order confirmation</p><h1>Thank you for your support.</h1>
+        <p th:text="|Demo order PH-${order.id} is complete. No money was charged.|"></p></div></div>
+    <div class="market-split">
+        <section class="order-block"><h2>Order receipt</h2>
+            <p th:text="|${#temporals.format(order.createdAt,'d MMMM yyyy, HH:mm')} · ${order.customerName}|"></p>
+            <dl class="price-list"><div th:each="item : ${order.items}">
+                <dt th:text="|${item.productName} × ${item.quantity}|"></dt><dd th:text="${@kzt.format(item.subtotal)}"></dd>
+            </div></dl>
+            <h3>Fulfillment preference</h3>
+            <p th:text="${order.fulfillment.name() == 'DELIVERY' ? 'Delivery' : 'Shelter pickup'}"></p>
+            <p th:if="${order.fulfillment.name() == 'DELIVERY'}" th:text="${order.address}"></p>
+        </section>
+        <aside class="market-summary"><h2>Payment summary</h2>
+            <p th:if="${!#strings.isEmpty(order.promoCode)}" th:text="|Promotion applied · ${order.promoCode}|"></p>
+            <dl th:replace="~{shop/fragments :: price(${order.subtotal},${order.discount},${order.giftWrappingFee},${order.donation},${order.total})}"></dl>
+            <a class="btn btn-primary" th:href="@{/shop}">Return to the shop</a>
+        </aside>
+    </div>
+</main>
+<footer th:replace="~{fragments/layout :: footer}"></footer>
+</body>
+</html>

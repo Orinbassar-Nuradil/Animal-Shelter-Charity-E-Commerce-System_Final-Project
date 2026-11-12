@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('Charity shop')}"><title>Charity shop · PawHaven</title></head>
+<body>
+<header th:replace="~{fragments/layout :: header('shop')}"></header>
+<main class="container page market-page" id="main">
+<div class="market-heading">
+        <div><p class="eyebrow">The shelter shop</p>
+            <h1>Goods that give back.</h1>
+            <p>Every shop purchase supports the animals in our care.</p>
+        </div>
+        <a class="btn btn-secondary" th:href="@{/cart}">View cart <span th:text="| (${cartCount})|"></span></a>
+    </div>
+    <div th:replace="~{shop/fragments :: notices}"></div>
+    <nav class="market-filters" aria-label="Filter products by category">
+        <a th:href="@{/shop}" th:classappend="${category.isEmpty() ? 'selected' : ''}"
+           th:attr="aria-current=${category.isEmpty() ? 'page' : null}">All products</a>
+        <a th:each="c : ${categories}" th:href="@{/shop(category=${c})}" th:text="${c}"
+           th:classappend="${category == c ? 'selected' : ''}" th:attr="aria-current=${category == c ? 'page' : null}"></a>
+    </nav>
+    <div th:if="${products.isEmpty()}">
+        <div th:replace="~{shop/fragments :: empty('No products in this category','Choose another category to browse the shop.')}"></div>
+    </div>
+    <section class="market-grid" aria-label="Products">
+        <article class="product-card" th:each="p : ${products}" th:id="|product-${p.id}|">
+            <div class="product-image"><img th:src="@{${p.imagePath}}" th:alt="${p.name}" width="400" height="260" loading="lazy"></div>
+            <div class="product-info">
+                <p class="product-category" th:text="${p.category}"></p>
+                <h2 th:text="${p.name}"></h2>
+                <p class="product-description" th:text="${p.description}"></p>
+                <div class="product-buy">
+                    <strong th:text="${@kzt.format(p.price)}"></strong>
+                    <form method="post" th:if="${p.available}" th:action="@{/cart/items/{id}/add(id=${p.id})}">
+                        <button type="submit" class="market-add" th:attr="aria-label=|Add ${p.name} to cart|">Add to cart <span aria-hidden="true">+</span></button>
+                    </form>
+                    <span class="market-muted" th:unless="${p.available}">Out of stock</span>
+                </div>
+            </div>
+        </article>
+    </section>
+</main>
+<footer th:replace="~{fragments/layout :: footer}"></footer>
+</body>
+</html>

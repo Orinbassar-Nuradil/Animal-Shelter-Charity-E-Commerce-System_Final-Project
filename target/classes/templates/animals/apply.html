@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('Adoption application')}"></head>
+<body>
+<header th:replace="~{fragments/layout :: header('animals')}"></header>
+<main id="main" class="container page adopt-page">
+
+    <a class="adopt-back" th:href="@{/animals/{id}(id=${animal.id})}" th:text="|← Back to ${animal.name}|"></a>
+    <div class="adopt-application">
+        <aside class="adopt-summary">
+            <img th:src="@{${animal.imagePath}}" th:alt="|Portrait of ${animal.name}|" width="420" height="320">
+            <div><h2 th:text="${animal.name}"></h2><p th:text="|${animal.breed} · ${animal.ageLabel}|"></p></div>
+        </aside>
+        <div>
+            <div class="page-heading"><h1>Adoption application</h1><p>Tell our team about the home you can offer. Use example contact details for this demonstration.</p></div>
+            <form method="post" th:action="@{/animals/{id}/apply(id=${animal.id})}" th:object="${adoptionForm}" class="adopt-form">
+                <div class="form-field adopt-form-field">
+                    <label for="applicantName">Your name</label>
+                    <input id="applicantName" th:field="*{applicantName}" th:attr="aria-invalid=${#fields.hasErrors('applicantName')},aria-describedby=${#fields.hasErrors('applicantName') ? 'applicantName-error' : null}" type="text" maxlength="80" required autocomplete="name">
+                    <small class="adopt-field-error" id="applicantName-error" th:errors="*{applicantName}" role="alert"></small>
+                </div>
+                <div class="form-field adopt-form-field">
+                    <label for="email">Email</label>
+                    <input id="email" th:field="*{email}" th:attr="aria-invalid=${#fields.hasErrors('email')},aria-describedby=${#fields.hasErrors('email') ? 'email-error' : null}" type="email" maxlength="254" required autocomplete="email">
+                    <small class="adopt-field-error" id="email-error" th:errors="*{email}" role="alert"></small>
+                </div>
+                <div class="form-field adopt-form-field">
+                    <label for="phone">Phone number</label>
+                    <input id="phone" th:field="*{phone}" th:attr="aria-invalid=${#fields.hasErrors('phone')},aria-describedby=${#fields.hasErrors('phone') ? 'phone-error' : null}" type="tel" maxlength="32" required autocomplete="tel">
+                    <small class="adopt-field-error" id="phone-error" th:errors="*{phone}" role="alert"></small>
+                </div>
+                <div class="form-field adopt-form-field">
+                    <label for="housing">Home &amp; care arrangements</label>
+                    <textarea id="housing" th:field="*{housing}" th:attr="aria-invalid=${#fields.hasErrors('housing')},aria-describedby=${#fields.hasErrors('housing') ? 'housing-error' : null}" rows="4" maxlength="1000" required></textarea>
+                    <small>Describe your household, daily routine and any other pets.</small>
+                    <small class="adopt-field-error" id="housing-error" th:errors="*{housing}" role="alert"></small>
+                </div>
+                <div class="form-field adopt-form-field">
+                    <label for="reason">Why would you like to adopt?</label>
+                    <textarea id="reason" th:field="*{reason}" th:attr="aria-invalid=${#fields.hasErrors('reason')},aria-describedby=${#fields.hasErrors('reason') ? 'reason-error' : null}" rows="4" maxlength="1000" required></textarea>
+                    <small class="adopt-field-error" id="reason-error" th:errors="*{reason}" role="alert"></small>
+                </div>
+                <p>Applications are reviewed by the shelter team before a placement is confirmed.</p>
+                <button class="btn btn-primary" type="submit">Submit application</button>
+            </form>
+        </div>
+    </div>
+</main>
+<footer th:replace="~{fragments/layout :: footer}"></footer>
+</body>
+</html>
