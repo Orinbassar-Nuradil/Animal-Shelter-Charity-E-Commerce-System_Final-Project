@@ -40,4 +40,24 @@ class AnimalCreatorTest {
         assertThatIllegalArgumentException().isThrownBy(() -> new AnimalProfile(" ", 12, Sex.MALE,
                 null, "Story", "Notes", AdoptionStatus.AVAILABLE, "/cat.svg"));
     }
+
+
+    @Test
+    void factoryCreatorsReturnCorrectSpeciesAndAnimalTypes() {
+        AnimalCreator catCreator = new CatCreator();
+        AnimalCreator dogCreator = new DogCreator();
+
+        assertThat(catCreator.species()).isEqualTo(Species.CAT);
+        assertThat(dogCreator.species()).isEqualTo(Species.DOG);
+
+        Animal cat = catCreator.createProfile(profile);
+        Animal dog = dogCreator.createProfile(profile);
+
+        assertThat(cat).isInstanceOf(Cat.class);
+        assertThat(dog).isInstanceOf(Dog.class);
+
+        assertThat(cat.getSpecies()).isEqualTo(Species.CAT);
+        assertThat(dog.getSpecies()).isEqualTo(Species.DOG);
+    }
+
 }
