@@ -49,4 +49,27 @@ class OrderDraftTest {
         assertThatThrownBy(() -> builder.items(List.of()).build()).hasMessageContaining("empty");
         assertThatThrownBy(() -> new DraftItem(1, "Bowl", 0, BigDecimal.ONE)).isInstanceOf(CommerceException.class);
     }
+
+
+    @Test
+    void builderRejectsInvalidEmailAndLongPromoCode() {
+        assertThatThrownBy(() -> OrderDraft.builder()
+                .customer("Alex", "invalid-email")
+                .items(List.of(bowl))
+                .fulfillment(Fulfillment.PICKUP)
+                .build())
+                .isInstanceOf(CommerceException.class)
+                .hasMessageContaining("valid email");
+
+        assertThatThrownBy(() -> OrderDraft.builder()
+                .customer("Alex", "alex@example.org")
+                .items(List.of(bowl))
+                .fulfillment(Fulfillment.PICKUP)
+                .promoCode("A".repeat(31))
+                .build())
+                .isInstanceOf(CommerceException.class)
+                .hasMessageContaining("too long");
+    }
+
 }
+
