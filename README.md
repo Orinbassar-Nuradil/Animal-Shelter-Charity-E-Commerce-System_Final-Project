@@ -121,3 +121,5 @@ Each Spring test context uses its own in-memory H2 database. The suite exercises
 - The in-memory staff account, file database and Hibernate schema updates suit a local, single-instance classroom demo. Staff orders and applications are shown as lists. Inventory history displays the latest 100 records on page load.
 - The first three seeded residents have generated photo-style portraits. Other residents and products use local illustrations. New cat and dog profiles receive a species illustration. Local DM Sans and DM Serif Text font licenses are included with the assets.
 
+
+
