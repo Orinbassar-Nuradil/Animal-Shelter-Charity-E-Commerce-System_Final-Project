@@ -1,3 +1,4 @@
+
 package com.pawhaven.adoption;
 
 import com.pawhaven.patterns.factory.AnimalCreator;
@@ -16,16 +17,24 @@ import java.util.*;
 @Validated
 @Transactional(readOnly = true)
 public class AdoptionService {
+
     private final AnimalRepository animals;
     private final ApplicationRepository applications;
     private final Map<Species, AnimalCreator> creators = new EnumMap<>(Species.class);
 
-    public AdoptionService(AnimalRepository animals, ApplicationRepository applications, List<AnimalCreator> creators) {
+    public AdoptionService(
+            AnimalRepository animals,
+            ApplicationRepository applications,
+            List<AnimalCreator> creators
+    ) {
         this.animals = animals;
         this.applications = applications;
+
         for (AnimalCreator creator : creators) {
             if (this.creators.put(creator.species(), creator) != null) {
-                throw new IllegalStateException("Multiple creators for " + creator.species());
+                throw new IllegalStateException(
+                        "Multiple creators for " + creator.species()
+                );
             }
         }
     }
@@ -33,16 +42,25 @@ public class AdoptionService {
     public List<Animal> catalog(Species species, AdoptionStatus status) {
         return animals.findAll((root, query, cb) -> {
             List<Predicate> filters = new ArrayList<>();
+
             if (species != null) {
-                filters.add(cb.equal(root.type(), species == Species.CAT ? Cat.class : Dog.class));
+                filters.add(cb.equal(
+                        root.type(),
+                        species == Species.CAT ? Cat.class : Dog.class
+                ));
             }
-            if (status != null) filters.add(cb.equal(root.get("status"), status));
+
+            if (status != null) {
+                filters.add(cb.equal(root.get("status"), status));
+            }
+
             return cb.and(filters.toArray(Predicate[]::new));
         }, Sort.by("id"));
     }
 
     public Animal animal(long id) {
-        return animals.findById(id).orElseThrow(() -> missing("Animal"));
+        return animals.findById(id)
+                .orElseThrow(() -> missing("Animal"));
     }
 
     @Transactional
@@ -52,28 +70,49 @@ public class AdoptionService {
 
     @Transactional
     public Animal create(Species species, AnimalProfile profile) {
-        AnimalCreator creator = Objects.requireNonNull(creators.get(species), "Unknown species.");
+        AnimalCreator creator = Objects.requireNonNull(
+                creators.get(species),
+                "Unknown species."
+        );
+
         return animals.save(creator.createProfile(profile));
     }
 
     @Transactional
     public void changeAvailability(long animalId, AdoptionStatus status) {
         Animal animal = lockAnimal(animalId);
-        if (animal.getStatus() == AdoptionStatus.ADOPTED || status == AdoptionStatus.ADOPTED) {
-            throw new AdoptionConflict("An adopted placement is recorded through an approved application.");
+
+        if (animal.getStatus() == AdoptionStatus.ADOPTED
+                || status == AdoptionStatus.ADOPTED) {
+            throw new AdoptionConflict(
+                    "An adopted placement is recorded through an approved application."
+            );
         }
+
         animal.changeStatus(Objects.requireNonNull(status));
     }
 
     @Transactional
     public AdoptionApplication apply(long animalId, @Valid AdoptionForm form) {
         Animal animal = lockAnimal(animalId);
+
         if (animal.getStatus() != AdoptionStatus.AVAILABLE) {
-            throw new AdoptionConflict("This animal is currently unavailable for applications.");
+            throw new AdoptionConflict(
+                    "This animal is currently unavailable for applications."
+            );
         }
-        if (applications.existsByAnimalIdAndEmailIgnoreCaseAndStatus(animalId, form.getEmail().strip(), ApplicationStatus.PENDING)) {
-            throw new AdoptionConflict("An application from this email is already pending for " + animal.getName() + ".");
+
+        if (applications.existsByAnimalIdAndEmailIgnoreCaseAndStatus(
+                animalId,
+                form.getEmail().strip(),
+                ApplicationStatus.PENDING
+        )) {
+            throw new AdoptionConflict(
+                    "An application from this email is already pending for "
+                            + animal.getName() + "."
+            );
         }
+
         return applications.save(new AdoptionApplication(animal, form));
     }
 
@@ -83,32 +122,65 @@ public class AdoptionService {
 
     @Transactional
     public void decide(long applicationId, ApplicationStatus decision) {
-        // Every adoption write locks the same animal before reading mutable application state.
-        Long animalId = applications.findAnimalId(applicationId).orElseThrow(() -> missing("Application"));
-        Animal animal = lockAnimal(animalId);
-        AdoptionApplication application = applications.findById(applicationId).orElseThrow(() -> missing("Application"));
-        if (application.getStatus() != ApplicationStatus.PENDING) {
-            throw new AdoptionConflict("This application has already been reviewed.");
+
+        // Only approved or rejected decisions are accepted.
+        if (decision != ApplicationStatus.APPROVED
+                && decision != ApplicationStatus.REJECTED) {
+            throw new IllegalArgumentException(
+                    "Decision must be APPROVED or REJECTED."
+            );
         }
+
+        // Every adoption write locks the same animal before
+        // reading mutable application state.
+        Long animalId = applications.findAnimalId(applicationId)
+                .orElseThrow(() -> missing("Application"));
+
+        Animal animal = lockAnimal(animalId);
+
+        AdoptionApplication application = applications.findById(applicationId)
+                .orElseThrow(() -> missing("Application"));
+
+        if (application.getStatus() != ApplicationStatus.PENDING) {
+            throw new AdoptionConflict(
+                    "This application has already been reviewed."
+            );
+        }
+
         if (decision == ApplicationStatus.REJECTED) {
             application.decide(decision);
             return;
         }
-        if (decision != ApplicationStatus.APPROVED || animal.getStatus() != AdoptionStatus.AVAILABLE) {
-            throw new AdoptionConflict("Approval requires a pending application and an available animal.");
+
+        if (animal.getStatus() != AdoptionStatus.AVAILABLE) {
+            throw new AdoptionConflict(
+                    "Approval requires a pending application and an available animal."
+            );
         }
-        // Resolve competing requests in the same transaction as this placement.
-        applications.findByAnimalIdAndStatus(animalId, ApplicationStatus.PENDING)
-                .forEach(pending -> pending.decide(pending.getId().equals(applicationId)
-                        ? ApplicationStatus.APPROVED : ApplicationStatus.REJECTED));
+
+        // Resolve competing requests in the same transaction
+        // as this placement.
+        applications.findByAnimalIdAndStatus(
+                animalId,
+                ApplicationStatus.PENDING
+        ).forEach(pending -> pending.decide(
+                pending.getId().equals(applicationId)
+                        ? ApplicationStatus.APPROVED
+                        : ApplicationStatus.REJECTED
+        ));
+
         animal.changeStatus(AdoptionStatus.ADOPTED);
     }
 
     private Animal lockAnimal(long id) {
-        return animals.lockById(id).orElseThrow(() -> missing("Animal"));
+        return animals.lockById(id)
+                .orElseThrow(() -> missing("Animal"));
     }
 
     private ResponseStatusException missing(String type) {
-        return new ResponseStatusException(HttpStatus.NOT_FOUND, type + " was not found.");
+        return new ResponseStatusException(
+                HttpStatus.NOT_FOUND,
+                type + " was not found."
+        );
     }
 }
