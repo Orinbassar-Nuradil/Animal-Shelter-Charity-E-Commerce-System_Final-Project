@@ -1,3 +1,6 @@
 
 # IntelliJ IDEA local settings
 .idea/
+
+# Maven build output
+target/

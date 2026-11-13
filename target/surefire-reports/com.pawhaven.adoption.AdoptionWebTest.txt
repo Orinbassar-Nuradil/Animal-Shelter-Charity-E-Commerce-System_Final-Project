@@ -1,4 +1,0 @@
--------------------------------------------------------------------------------
-Test set: com.pawhaven.adoption.AdoptionWebTest
--------------------------------------------------------------------------------
-Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 2.519 s -- in com.pawhaven.adoption.AdoptionWebTest
