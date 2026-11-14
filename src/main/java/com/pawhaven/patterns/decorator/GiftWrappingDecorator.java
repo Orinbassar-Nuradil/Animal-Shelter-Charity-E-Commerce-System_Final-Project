@@ -13,3 +13,5 @@ public class GiftWrappingDecorator extends AbstractCheckoutPriceDecorator {
         return new PriceBreakdown(base.subtotal(), base.discount(), base.giftWrapping().add(FEE), base.donation());
     }
 }
+
+// Gift wrapping fee decorator
