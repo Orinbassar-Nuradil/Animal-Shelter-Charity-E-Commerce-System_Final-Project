@@ -9,3 +9,5 @@ public class NoDiscountStrategy implements DiscountStrategy {
     public String code() { return ""; }
     public BigDecimal discount(BigDecimal subtotal) { return Money.ZERO; }
 }
+
+// Default no-discount strategy
