@@ -10,3 +10,5 @@ public class FixedAmountDiscountStrategy implements DiscountStrategy {
     public String code() { return "HELP1500"; }
     public BigDecimal discount(BigDecimal subtotal) { return subtotal.min(AMOUNT); }
 }
+
+// HELP1500 fixed discount strategy
