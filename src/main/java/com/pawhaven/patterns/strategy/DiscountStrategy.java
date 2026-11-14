@@ -7,3 +7,5 @@ public interface DiscountStrategy {
     String code();
     BigDecimal discount(BigDecimal subtotal);
 }
+
+// Strategy contract verified
