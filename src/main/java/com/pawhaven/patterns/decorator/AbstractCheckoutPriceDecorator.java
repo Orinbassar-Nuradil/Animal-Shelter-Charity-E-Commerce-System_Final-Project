@@ -10,3 +10,5 @@ public abstract class AbstractCheckoutPriceDecorator implements CheckoutPriceCom
         this.inner = Objects.requireNonNull(inner);
     }
 }
+
+// Base decorator wrapper
