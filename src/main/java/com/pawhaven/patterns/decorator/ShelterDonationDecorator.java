@@ -17,3 +17,5 @@ public class ShelterDonationDecorator extends AbstractCheckoutPriceDecorator {
         return new PriceBreakdown(base.subtotal(), base.discount(), base.giftWrapping(), base.donation().add(amount));
     }
 }
+
+// Shelter donation decorator
