@@ -6,3 +6,5 @@ import com.pawhaven.commerce.PriceBreakdown;
 public interface CheckoutPriceComponent {
     PriceBreakdown price();
 }
+
+// Checkout price component interface
