@@ -11,3 +11,5 @@ public class PercentageDiscountStrategy implements DiscountStrategy {
     public String code() { return "PAWS10"; }
     public BigDecimal discount(BigDecimal subtotal) { return Money.round(subtotal.multiply(RATE)); }
 }
+
+// PAWS10 10% discount strategy
